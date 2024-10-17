@@ -1,84 +1,96 @@
-/**
- * Copyright 2024 eglicky
- * @license Apache-2.0, see LICENSE for full text.
- */
-import { LitElement, html, css } from "lit";
-import { DDDSuper } from "@haxtheweb/d-d-d/d-d-d.js";
-import { I18NMixin } from "@haxtheweb/i18n-manager/lib/I18NMixin.js";
+import { LitElement, html, css } from 'lit';
 
-/**
- * `un-sdg-new`
- * 
- * @demo index.html
- * @element un-sdg-new
- */
-export class unSdgNew extends DDDSuper(I18NMixin(LitElement)) {
-
-  static get tag() {
-    return "un-sdg-new";
-  }
-
+class UNGoal extends LitElement {
+  //Properties for the element
+  static properties = {
+    goal: { type: String },
+    label: { type: String },
+    colorOnly: { type: Boolean },
+    size: { type: String }
+  };
+// default values for all diff properties
   constructor() {
     super();
-    this.title = "";
-    this.t = this.t || {};
-    this.t = {
-      ...this.t,
-      title: "Title",
-    };
-    this.registerLocalization({
-      context: this,
-      localesPath:
-        new URL("./locales/un-sdg-new.ar.json", import.meta.url).href +
-        "/../",
-      locales: ["ar", "es", "hi", "zh"],
-    });
+    this.goal = '1';
+    this.label = '';
+    this.colorOnly = false;
+    this.size = '254px';
   }
-
-  // Lit reactive properties
-  static get properties() {
-    return {
-      ...super.properties,
-      title: { type: String },
-    };
-  }
-
-  // Lit scoped styles
-  static get styles() {
-    return [super.styles,
-    css`
-      :host {
-        display: block;
-        color: var(--ddd-theme-primary);
-        background-color: var(--ddd-theme-accent);
-        font-family: var(--ddd-font-navigation);
-      }
-      .wrapper {
-        margin: var(--ddd-spacing-2);
-        padding: var(--ddd-spacing-4);
-      }
-      h3 span {
-        font-size: var(--un-sdg-new-label-font-size, var(--ddd-font-size-s));
-      }
-    `];
-  }
-
-  // Lit render the HTML
+// Shows the HTML and CSS based on the set properties
   render() {
+    const goalName = `Goal ${this.goal}: ${this.getGoalName(this.goal)}`;
+    const altText = this.label || goalName;
+    const goalSvg = `./un-sdg/lib/svgs/goal-${this.goal}.svg`; // Adjusted path to your SVGs
+    const color = this.getGoalColor(this.goal);
+    
     return html`
-<div class="wrapper">
-  <h3><span>${this.t.title}:</span> ${this.title}</h3>
-  <slot></slot>
-</div>`;
+      <style>
+        .goal {
+          width: ${this.size};
+          height: ${this.size};
+        }
+        .color-square {
+          background-color: ${color};
+          width: ${this.size};
+          height: ${this.size};
+        }
+      </style>
+      ${this.colorOnly ? html`
+      <!-- If colorOnly is true it will display the color-->
+        <div class="color-square"></div>
+      ` : html`
+      <!-- this is supposed to show the element when it works-->
+        <img class="goal" src="${goalSvg}" alt="${altText}" loading="lazy" fetchpriority="low">
+        <p>${goalName}</p> 
+      `}
+    `;
+  }
+// shows the color and puts it with the goal name
+  getGoalName(goal) {
+    const names = {
+      '1': 'No Poverty',
+      '2': 'Zero Hunger',
+      '3': 'Good Health and Well-being',
+      '4': 'Quality Education',
+      '5': 'Gender Equality',
+      '6': 'Clean Water and Sanitation',
+      '7': 'Affordable and Clean Energy',
+      '8': 'Decent Work and Economic Growth',
+      '9': 'Industry, Innovation, and Infrastructure',
+      '10': 'Reduced Inequality',
+      '11': 'Sustainable Cities and Communities',
+      '12': 'Responsible Consumption and Production',
+      '13': 'Climate Action',
+      '14': 'Life Below Water',
+      '15': 'Life on Land',
+      '16': 'Peace and Justice Strong Institutions',
+      '17': 'Partnerships for the Goals',
+    };
+    return names[goal] || 'Goal';
   }
 
-  /**
-   * haxProperties integration via file reference
-   */
-  static get haxProperties() {
-    return new URL(`./lib/${this.tag}.haxProperties.json`, import.meta.url)
-      .href;
+  getGoalColor(goal) {
+    const colors = {
+      '1': '#e5243b',
+      '2': '#dda63a',
+      '3': '#4c9f38',
+      '4': '#c5192d',
+      '5': '#ff3a21',
+      '6': '#26bde2',
+      '7': '#fcc30b',
+      '8': '#a21942',
+      '9': '#fd6925',
+      '10': '#dd1367',
+      '11': '#fd9d24',
+      '12': '#bf8b2e',
+      '13': '#3f7e44',
+      '14': '#0a97d9',
+      '15': '#56c02b',
+      '16': '#00689d',
+      '17': '#19486a',
+    };
+    return colors[goal] || '#000';
   }
 }
-
-globalThis.customElements.define(unSdgNew.tag, unSdgNew);
+//shows un-goal element
+customElements.define('un-goal', UNGoal);

@@ -1,129 +1,78 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <base href="/">
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <meta name="Description" content="Demonstration for un-sdg-new">
-
+  <!-- Sets characters for the page -->
+  <meta charset="UTF-8">
+  <!-- scaling on mobile -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UN SDG Goals Demo</title>
+  <!-- Imports the un-goal module -->
+  <script type="module" src="./un-goal.js"></script>
   <style>
-    :root, html, body {
-      margin: 0;
-      padding: 0;
+    /*Sets default font and aligns the text */
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
     }
-    #demo {
-      margin: var(--ddd-spacing-2);
+    /* grid layout with proper spacing*/
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin: 20px auto;
+      max-width: 800px;
     }
-    un-sdg-new {
-      margin: var(--ddd-spacing-2);
-      border: var(--ddd-border-md);
-      border-radius: var(--ddd-radius-lg);
+    /* button style */
+    button {
+      padding: 10px 20px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      cursor: pointer;
     }
-    un-sdg-new:hover {
-      box-shadow: var(--ddd-boxShadow-sm);
-    }
-    #example {
-      --un-sdg-new-font-size: var(--ddd-font-size-l);
-      background-color: var(--ddd-accent-2);
-      color: var(--ddd-primary-17);
+    button:hover {
+      background-color: #0056b3;
     }
   </style>
-  <title>un-sdg-new</title>
 </head>
-
 <body>
-  <div id="demo">
-    <h1>un-sdg-new</h1>
-    <!-- this is going to do whatever the tag's defaults are -->
-    <h2>Default</h2>
-    <un-sdg-new></un-sdg-new>
-    <h2>Slot usage</h2>
-    <un-sdg-new data-accent="2" data-primary="17"><div>Sample slot content</div></un-sdg-new>
-    <h2>Property usage</h2>
-    <un-sdg-new id="example" title="Sample property title"></un-sdg-new>
+  <!-- title of page -->
+  <h1>Sustainable Goals</h1>
+  <!-- Grid of custom elements for un-goal-->
+  <div class="grid">
+    <un-goal goal="1"></un-goal>
+    <un-goal goal="2"></un-goal>
+    <un-goal goal="3"></un-goal>
+    <un-goal goal="4"></un-goal>
+    <un-goal goal="5"></un-goal>
+    <un-goal goal="6"></un-goal>
+    <un-goal goal="7"></un-goal>
+    <un-goal goal="8"></un-goal>
+    <un-goal goal="9"></un-goal>
+    <un-goal goal="10"></un-goal>
+    <un-goal goal="11"></un-goal>
+    <un-goal goal="12"></un-goal>
+    <un-goal goal="13"></un-goal>
+    <un-goal goal="14"></un-goal>
+    <un-goal goal="15"></un-goal>
+    <un-goal goal="16"></un-goal>
+    <un-goal goal="17"></un-goal>
   </div>
-  <script type="module" src="./un-sdg-new.js"></script>
+  <!-- Button to have random goal-->
+  <button onclick="randomizeGoal()">Change Random Goal</button>
 
-  <!-- Take HAX, the Web and you further down the rabbit hole -->
-  <style>
-    #follow-the-white-rabbit {
-      margin: var(--ddd-spacing-4) auto 64px  16px;
-      background-color: var(--ddd-accent-4);
-      color: black;
+  <script>
+    //function to randomize displayed goal
+    function randomizeGoal() {
+      //selects all the un-goal elements
+      const goals = document.querySelectorAll('un-goal');
+      // picks random index for the number of goals
+      const randomIndex = Math.floor(Math.random() * goals.length);
+      //random goal from 1 - 17
+      const randomGoal = Math.floor(Math.random() * 17) + 1;
+      //sets goal of randomly selected goal
+      goals[randomIndex].goal = randomGoal.toString();
     }
-    #follow-the-white-rabbit[open] summary {
-      background-color: var(--ddd-accent-4) !important;
-      color: black;
-    }
-    #follow-the-white-rabbit[open] .content {
-      padding: 0 var(--ddd-spacing-4);
-    }
-    #follow-the-white-rabbit ul,
-    #follow-the-white-rabbit li {
-      padding: 0;
-      margin: 0;
-    }
-    #follow-the-white-rabbit li {
-      font-size: var(--ddd-font-size-xs);
-      list-style: none;
-    }
-    #follow-the-white-rabbit li strong,
-    #follow-the-white-rabbit li a {
-      padding: var(--ddd-spacing-2) var(--ddd-spacing-4);
-      color: black;
-      display: block;
-      font-weight: bold;
-    }
-    #follow-the-white-rabbit li:focus-within a,
-    #follow-the-white-rabbit li:hover a {
-      background-color: black;
-      color: yellow;
-    }
-  </style>
-  <details id="follow-the-white-rabbit" open>
-    <summary>How to Develop</summary>
-    <div class="content">
-      <p>
-      
-      </p>
-      <p>
-        You can edit the current page by modifying <code>index.html</code><br />
-        To edit your <strong>un-sdg-new</strong> tag, modify <code>src/un-sdg-new.js</code>.
-        This file contains all the HTML, CSS and JavaScript used to render your elements above!
-      </p>
-      <p>
-        Web components are easy to follow once you get used to their pattern.
-        Below are links to help on your journey. Good luck, we need you!
-      </p>
-      <ul>
-        <li><a href="https://haxtheweb.org/documentation/ddd" target="_blank">🧑‍🎨 Learn DDD HAX Design system</a></li>
-        <li><a href="https://lit.dev/playground/" target="_blank" rel="nofollow">🔥 Learn Lit</a></li>
-        <li><a href="https://hax.psu.edu" target="_blank">🧙 HAX The Web @ Penn State</a></li>
-      </ul>
-      <h2>Join and Share HAX</h2>
-      <ul>
-        <li><a href="https://github.com/haxtheweb/issues/issues" target="_blank" rel="nofollow">🔮 Ideas to HAX Harder, Better, Faster, Stronger</a></li>
-        <li><a href="https://bit.ly/hax-the-linkedin" target="_blank" rel="nofollow">👔 Share on LinkedIn</a></li>
-        <li><a href="https://bit.ly/hax-the-x" target="_blank" rel="nofollow">🧵 Tweet on X</a></li>
-        <li><a href="https://bit.ly/hax-discord" target="_blank" rel="nofollow">💬 Join Community</a></li>
-      </ul>
-      <h2>Learn the languages and tools</h2>
-      <ul>
-        <li><a href="https://w3schools.com" target="_blank" rel="nofollow">🌐 Learn HTML</a></li>
-        <li><a href="https://web.dev/learn/css/" target="_blank" rel="nofollow">🎨 Learn CSS</a></li>
-        <li><a href="http://Javascript.info" target="_blank" rel="nofollow">💻 Learn JavaScript (JS)</a></li>
-        <li><a href="https://gitimmersion.com" target="_blank" rel="nofollow">🦺 Learn Git / Github</a></li>
-        <li><a href="https://nodesource.com/blog/an-absolute-beginners-guide-to-using-npm/" target="_blank" rel="nofollow">📦 Learn NPM</a></li>
-        <li><a href="http://learnux.io" target="_blank" rel="nofollow">📐 Learn UX / UI development</a></li>
-      </ul>
-      <h2>Find purpose and inspiration</h2>
-      <ul>
-        <li><a href="https://www.youtube.com/watch?v=eC7xzavzEKY" target="_blank" rel="nofollow">🐟 This is Water - David Foster Wallace</a></li>
-        <li><a href="https://www.youtube.com/watch?v=kYfNvmF0Bqw" target="_blank" rel="nofollow">🏗️ Secrets of Life - Steve Jobs</a></li>
-        <li><strong>💡 <em>Never. Stop. Innovating.</em></strong></li>
-      </ul>
-    </div>
-  </details>
+  </script>
 </body>
 </html>
